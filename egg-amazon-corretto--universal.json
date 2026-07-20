@@ -1,0 +1,93 @@
+{
+    "_comment": "DO NOT MODIFY THIS FILE. EVERY CHANGES CAN CAUSE THE EGG NOT WORKING PROPERLY.",
+    "meta": {
+        "version": "PTDL_v2",
+        "update_url": null
+    },
+    "exported_at": "2026-07-20T01:46:30+00:00",
+    "name": "Amazon Corretto",
+    "author": "SSdaRealest (ssdarealeast@proton.me)",
+    "description": "Production-ready Amazon Corretto egg for Pterodactyl Panel. High perfomance, flexible & easy to use.",
+    "features": [
+        "eula",
+        "java_version",
+        "pid_limit"
+    ],
+    "docker_images": {
+        "Amazon Corretto 8": "ghcr.io/ssdarealest/corretto-8-pterodactyl:latest",
+        "Amazon Corretto 11": "ghcr.io/ssdarealest/corretto-11-pterodactyl:latest",
+        "Amazon Corretto 17": "ghcr.io/ssdarealest/corretto-17-pterodactyl:latest",
+        "Amazon Corretto 19": "ghcr.io/ssdarealest/corretto-19-pterodactyl:latest",
+        "Amazon Corretto 20": "ghcr.io/ssdarealest/corretto-20-pterodactyl:latest",
+        "Amazon Corretto 21": "ghcr.io/ssdarealest/corretto-21-pterodactyl:latest",
+        "Amazon Corretto 25": "ghcr.io/ssdarealest/corretto-25-pterodactyl:latest",
+        "Amazon Corretto 26": "ghcr.io/ssdarealest/corretto-26-pterodactyl:latest"
+    },
+    "file_denylist": [],
+    "startup": "java -Xms{{SERVER_MEMORY}}M -Xmx{{SERVER_MEMORY}}M {{JAVA_ARGS}} -jar {{SERVER_JARFILE}} {{SERVER_ARGS}}",
+    "config": {
+        "files": "{\r\n    \"server.properties\": {\r\n        \"parser\": \"properties\",\r\n        \"find\": {\r\n            \"server-ip\": \"0.0.0.0\",\r\n            \"server-port\": \"{{server.build.default.port}}\",\r\n            \"query.port\": \"{{server.build.default.port}}\"\r\n        }\r\n    }\r\n}",
+        "startup": "{\r\n    \"done\": \")! For help, type \"\r\n}",
+        "logs": "{}",
+        "stop": "stop"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/bash\n# Amazon Corretto (Universal) Installation Script\n\ncd /mnt/server || exit 1\n\n# Detect selected Java version from DOCKER_IMAGE variable provided by Pterodactyl\nJAVA_VERSION=$(echo \"${DOCKER_IMAGE}\" | sed -n 's/.*corretto-\\([0-9]*\\)-pterodactyl.*/\\1/p')\nif [ -z \"${JAVA_VERSION}\" ]; then\n    JAVA_VERSION=\"selected\"\nfi\n\necho \"========================================\"\necho \"Amazon Corretto Server Installation\"\necho \"Selected Image : ${DOCKER_IMAGE}\"\necho \"Java Version   : Java ${JAVA_VERSION}\"\necho \"========================================\"\n\n# Download server JAR if SERVER_JARFILE is a URL\nif [[ \"${SERVER_JARFILE}\" == http* ]]; then\n    echo \"Downloading server JAR from: ${SERVER_JARFILE}\"\n    curl -sSL -o server.jar \"${SERVER_JARFILE}\"\n    echo \"Download complete!\"\nelse\n    echo \"SERVER_JARFILE is set to '${SERVER_JARFILE}'.\"\n    echo \"If it is not a direct URL, please upload your JAR file manually to: ${SERVER_JARFILE}\"\nfi\n\n# Accept EULA if enabled\nif [[ \"${AUTO_EULA}\" == \"1\" ]] || [[ \"${AUTO_EULA}\" == \"true\" ]]; then\n    echo \"eula=true\" > eula.txt\n    echo \"Minecraft EULA automatically accepted (eula.txt).\"\nfi\n\necho \"========================================\"\necho \"Installation complete for Java ${JAVA_VERSION}!\"\necho \"========================================\"",
+            "container": "ghcr.io/pterodactyl/installers:alpine",
+            "entrypoint": "bash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Server JAR File",
+            "description": "The name of the server JAR file or URL to download it from.",
+            "env_variable": "SERVER_JARFILE",
+            "default_value": "server.jar",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Server Memory",
+            "description": "The amount of memory (in MB) to allocate to the server.",
+            "env_variable": "SERVER_MEMORY",
+            "default_value": "2048",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|numeric|min:512",
+            "field_type": "text"
+        },
+        {
+            "name": "Java Arguments",
+            "description": "Additional JVM arguments to pass to Java.",
+            "env_variable": "JAVA_ARGS",
+            "default_value": "-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Server Arguments",
+            "description": "Additional arguments to pass to the server JAR.",
+            "env_variable": "SERVER_ARGS",
+            "default_value": "nogui",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "nullable|string",
+            "field_type": "text"
+        },
+        {
+            "name": "Auto Accept EULA",
+            "description": "Automatically accept the Minecraft EULA during installation.",
+            "env_variable": "AUTO_EULA",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": "required|boolean",
+            "field_type": "text"
+        }
+    ]
+}
