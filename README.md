@@ -211,8 +211,7 @@ To know if Amazon Corretto works better on Minecraft, I've run two specially Min
 >
 > `-XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:G1HeapRegionSize=16M -XX:G1NewSizePercent=28 -XX:G1MaxNewSizePercent=50 -XX:G1ReservePercent=15 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1SATBBufferEnqueueingThresholdPercent=30 -XX:InitiatingHeapOccupancyPercent=45 -XX:MaxTenuringThreshold=1 -XX:SurvivorRatio=32 -XX:+UseStringDeduplication -XX:+DisableExplicitGC -XX:+UseLargePages -XX:+UseTransparentHugePages -XX:LargePageSizeInBytes=2M -XX:ReservedCodeCacheSize=512M -XX:AllocatePrefetchStyle=3 -XX:+TieredCompilation -XX:TieredStopAtLevel=4 -XX:-DontCompileHugeMethods -XX:MaxNodeLimit=240000 -XX:NodeLimitFudgeFactor=8000 -XX:+OptimizeStringConcat -XX:+PerfDisableSharedMem -Dgale.log.warning.offline.mode=false -Dgale.log.warning.root=false -DGeyser.RakGlobalPacketLimit=100000 -DGeyser.RakPacketLimit=1500 -DGeyser.RakRateLimitingDisabled=true -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -DLeaf.disable-vanilla-profiler=true -DLeaf.enableFMA=true -Dpaper.explicit-flush=true -Dpaper.playerconnection.keepalive=180 -Dsun.net.maxDatagramSockets=16384 -Dterminal.ansi=true -Dterminal.jline=false`
 
-> [!NOTE]
-> Work in progress, will update soon.
+### Default Java Docker (21) with 
 
 ---
 
