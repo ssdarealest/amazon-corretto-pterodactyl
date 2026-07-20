@@ -3,7 +3,7 @@
 ![Coretto x Pterodactyl](assets/ptero.png)
 
 
-<h1>Amazon Corretto (optimized Java fork) for Minecraft Server</h1>
+<h1>Amazon Corretto for Pterodactyl Panel</h1>
 
 ![Java 25](https://img.shields.io/badge/Java-Corretto-orange?style=for-the-badge&logo=openjdk)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)
