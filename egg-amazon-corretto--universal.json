@@ -50,16 +50,6 @@
             "field_type": "text"
         },
         {
-            "name": "Server Memory",
-            "description": "The amount of memory (in MB) to allocate to the server.",
-            "env_variable": "SERVER_MEMORY",
-            "default_value": "2048",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|numeric|min:512",
-            "field_type": "text"
-        },
-        {
             "name": "Java Arguments",
             "description": "Additional JVM arguments to pass to Java.",
             "env_variable": "JAVA_ARGS",
