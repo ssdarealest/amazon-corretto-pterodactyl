@@ -68,16 +68,6 @@
             "user_editable": true,
             "rules": "nullable|string",
             "field_type": "text"
-        },
-        {
-            "name": "Auto Accept EULA",
-            "description": "Automatically accept the Minecraft EULA during installation.",
-            "env_variable": "AUTO_EULA",
-            "default_value": "true",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": "required|boolean",
-            "field_type": "text"
         }
     ]
 }
